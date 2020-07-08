@@ -1,0 +1,43 @@
+type: install
+id: wikijs
+name: Wiki.js
+homepage: https://wiki.js.org/
+baseUrl: https://raw.githubusercontent.com/reclaimhosting/wikijs-jps/master
+logo: images/wikijs-logo.svg
+
+description: 
+  text: A modern, lightweight and powerful wiki app built on Node.js
+  
+categories:
+- apps/popular
+- apps/collaboration
+
+nodes:
+  nodeType: dockerengine
+  nodeGroup: cp
+  cloudlets: 16
+  extip: false
+  displayName: Wiki.js Server
+
+onInstall: setup
+
+actions:
+  setup:
+    cmd[cp]: |-
+      docker run -d -p 80:3000 --name wiki \
+      --restart unless-stopped -e "DB_TYPE=sqlite" \
+      requarks/wiki:2
+
+      #Checking of container is up and running 
+      until [ "`/usr/bin/docker inspect -f {{.State.Running}} wiki`"=="true" ]; do
+        sleep 1
+        print '.'
+      done;
+
+      echo OK
+
+ssl: true
+skipNodeEmails: true
+    
+success: | 
+  **Wiki URL**: [https://${env.domain}/](https://${env.domain}/)
