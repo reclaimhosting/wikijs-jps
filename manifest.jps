@@ -3,7 +3,7 @@ id: wikijs
 name: Wiki.js
 homepage: https://wiki.js.org/
 baseUrl: https://raw.githubusercontent.com/reclaimhosting/wikijs-jps/master
-logo: images/wikijs-logo.svg
+logo: images/wikijs-logo.png
 
 description: 
   text: A modern, lightweight and powerful wiki app built on Node.js
